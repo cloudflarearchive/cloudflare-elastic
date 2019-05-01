@@ -1,0 +1,412 @@
+{
+   "index_patterns" : [
+      "cloudflare-*"
+   ],
+   "mappings" : {
+      "doc" : {
+         "properties": {
+            "UserAgent": {
+               "properties": {
+                  "name": {
+                     "type": "keyword"
+                  },
+                  "os_major": {
+                     "type": "keyword"
+                  },
+                  "patch": {
+                     "type": "keyword"
+                  },
+                  "os_name": {
+                     "type": "text",
+                     "fields": {
+                        "keyword": {
+                           "ignore_above": 256,
+                           "type": "keyword"
+                        }
+                     }
+                  },
+                  "minor": {
+                     "type": "keyword"
+                  },
+                  "device": {
+                     "type": "keyword"
+                  },
+                  "os_minor": {
+                     "type": "keyword"
+                  },
+                  "build": {
+                     "type": "keyword"
+                  },
+                  "major": {
+                     "type": "keyword"
+                  },
+                  "os": {
+                     "type": "text",
+                     "fields": {
+                        "keyword": {
+                           "type": "keyword",
+                           "ignore_above": 256
+                        }
+                     }
+                  }
+               }
+            },
+            "WAFFlags": {
+               "fields": {
+                  "keyword": {
+                     "type": "keyword",
+                     "ignore_above": 256
+                  }
+               },
+               "type": "text"
+            },
+            "ClientSSLProtocol": {
+               "fields": {
+                  "keyword": {
+                     "ignore_above": 256,
+                     "type": "keyword"
+                  }
+               },
+               "type": "text"
+            },
+            "WAFRuleID": {
+               "type": "text",
+               "fields": {
+                  "keyword": {
+                     "ignore_above": 256,
+                     "type": "keyword"
+                  }
+               }
+            },
+            "EdgeColoID": {
+               "type": "long"
+            },
+            "ClientIP": {
+               "properties": {
+                  "ip": {
+                     "type": "keyword"
+                  },
+                  "postal_code": {
+                     "type": "keyword"
+                  },
+                  "location": {
+                     "type": "geo_point"
+                  },
+                  "dma_code": {
+                     "type": "long"
+                  },
+                  "country_code3": {
+                     "type": "keyword"
+                  },
+                  "latitude": {
+                     "type": "float"
+                  },
+                  "longitude": {
+                     "type": "float"
+                  },
+                  "region_name": {
+                     "fields": {
+                        "keyword": {
+                           "ignore_above": 256,
+                           "type": "keyword"
+                        }
+                     },
+                     "type": "text"
+                  },
+                  "city_name": {
+                     "type": "keyword"
+                  },
+                  "timezone": {
+                     "type": "keyword"
+                  },
+                  "country_code2": {
+                     "type": "keyword"
+                  },
+                  "continent_code": {
+                     "type": "keyword"
+                  },
+                  "country_name": {
+                     "type": "keyword"
+                  },
+                  "region_code": {
+                     "type": "keyword"
+                  }
+               }
+            },
+            "OriginResponseTime": {
+               "type": "long"
+            },
+            "@version": {
+               "type": "keyword"
+            },
+            "CacheCacheStatus": {
+               "type": "keyword"
+            },
+            "ClientCountry": {
+               "type": "keyword"
+            },
+            "EdgeServerIP": {
+               "type": "keyword"
+            },
+            "WAFMatchedVar": {
+               "type": "text",
+               "fields": {
+                  "keyword": {
+                     "ignore_above": 256,
+                     "type": "keyword"
+                  }
+               }
+            },
+            "WAFAction": {
+               "type": "text",
+               "fields": {
+                  "keyword": {
+                     "type": "keyword",
+                     "ignore_above": 256
+                  }
+               }
+            },
+            "EdgePathingStatus": {
+               "type": "keyword"
+            },
+            "message": {
+               "fields": {
+                  "keyword": {
+                     "ignore_above": 256,
+                     "type": "keyword"
+                  }
+               },
+               "type": "text"
+            },
+            "ClientASN": {
+               "type": "long"
+            },
+            "EdgeRateLimitID": {
+               "type": "long"
+            },
+            "ClientRequestUserAgent": {
+               "fields": {
+                  "keyword": {
+                     "type": "keyword",
+                     "ignore_above": 256
+                  }
+               },
+               "type": "text"
+            },
+            "EdgeResponseCompressionRatio": {
+               "type": "float"
+            },
+            "ParentRayID": {
+               "type": "keyword"
+            },
+            "ClientRequestReferer": {
+               "fields": {
+                  "keyword": {
+                     "ignore_above": 256,
+                     "type": "keyword"
+                  }
+               },
+               "type": "text"
+            },
+            "CacheTieredFill": {
+               "type": "boolean"
+            },
+            "RayID": {
+               "type": "keyword"
+            },
+            "ClientIPClass": {
+               "fields": {
+                  "keyword": {
+                     "type": "keyword",
+                     "ignore_above": 256
+                  }
+               },
+               "type": "text"
+            },
+            "ClientRequestProtocol": {
+               "type": "text",
+               "fields": {
+                  "keyword": {
+                     "ignore_above": 256,
+                     "type": "keyword"
+                  }
+               }
+            },
+            "EdgeRequestHost": {
+               "type": "keyword"
+            },
+            "CacheResponseBytes": {
+               "type": "long"
+            },
+            "ClientDeviceType": {
+               "type": "keyword"
+            },
+            "EdgeRateLimitAction": {
+               "fields": {
+                  "keyword": {
+                     "ignore_above": 256,
+                     "type": "keyword"
+                  }
+               },
+               "type": "text"
+            },
+            "EdgeEndTimestamp": {
+               "type": "date"
+            },
+            "OriginResponseHTTPExpires": {
+               "fields": {
+                  "keyword": {
+                     "type": "keyword",
+                     "ignore_above": 256
+                  }
+               },
+               "type": "text"
+            },
+            "EdgeResponseStatus": {
+               "type": "long"
+            },
+            "ClientRequestBytes": {
+               "type": "long"
+            },
+            "CacheResponseStatus": {
+               "type": "long"
+            },
+            "ClientRequestHost": {
+               "type": "keyword"
+            },
+            "OriginSSLProtocol": {
+               "type": "text",
+               "fields": {
+                  "keyword": {
+                     "type": "keyword",
+                     "ignore_above": 256
+                  }
+               }
+            },
+            "ClientRequestURI": {
+               "type": "text",
+               "fields": {
+                  "keyword": {
+                     "type": "keyword",
+                     "ignore_above": 256
+                  }
+               }
+            },
+            "OriginResponseBytes": {
+               "type": "long"
+            },
+            "WorkerCPUTime": {
+               "type": "long"
+            },
+            "OriginResponseHTTPLastModified": {
+               "fields": {
+                  "keyword": {
+                     "type": "keyword",
+                     "ignore_above": 256
+                  }
+               },
+               "type": "text"
+            },
+            "EdgeStartTimestamp": {
+               "type": "date"
+            },
+            "EdgePathingSrc": {
+               "type": "keyword"
+            },
+            "WAFProfile": {
+               "type": "text",
+               "fields": {
+                  "keyword": {
+                     "type": "keyword",
+                     "ignore_above": 256
+                  }
+               }
+            },
+            "EdgePathingOp": {
+               "type": "keyword"
+            },
+            "SecurityLevel": {
+               "type": "keyword"
+            },
+            "WAFRuleMessage": {
+               "fields": {
+                  "keyword": {
+                     "type": "keyword",
+                     "ignore_above": 256
+                  }
+               },
+               "type": "text"
+            },
+            "OriginResponseStatus": {
+               "type": "long"
+            },
+            "@timestamp": {
+               "type": "date"
+            },
+            "OriginIP": {
+               "type": "keyword"
+            },
+            "ClientRequestMethod": {
+               "type": "keyword"
+            },
+            "ZoneID": {
+               "type": "long"
+            },
+            "ClientSrcPort": {
+               "type": "long"
+            },
+            "WorkerSubrequest": {
+               "type": "boolean"
+            },
+            "WorkerStatus": {
+               "type": "text",
+               "fields": {
+                  "keyword": {
+                     "type": "keyword",
+                     "ignore_above": 256
+                  }
+               }
+            },
+            "EdgeResponseContentType": {
+               "fields": {
+                  "keyword": {
+                     "ignore_above": 256,
+                     "type": "keyword"
+                  }
+               },
+               "type": "text"
+            },
+            "ClientSSLCipher": {
+               "fields": {
+                  "keyword": {
+                     "type": "keyword",
+                     "ignore_above": 256
+                  }
+               },
+               "type": "text"
+            },
+            "EdgeResponseBytes": {
+               "type": "long"
+            },
+            "WorkerSubrequestCount": {
+               "type": "long"
+            },
+            "ClientRequestPath": {
+               "type": "text",
+               "fields": {
+                  "keyword": {
+                     "ignore_above": 256,
+                     "type": "keyword"
+                  }
+               }
+            }
+         }
+      }
+   },
+   "settings" : {
+      "index" : {
+         "number_of_shards" : "1",
+         "number_of_replicas" : "1"
+      }
+   }
+}

@@ -1,0 +1,38 @@
+{
+  "description" : "Cloudflare Log Pipeline",
+  "processors" : [
+    {
+        "date_index_name" : {
+          "field" : "EdgeStartTimestamp",
+          "index_name_prefix" : "cloudflare-",
+          "date_rounding" : "d",
+          "timezone": "UTC",
+          "date_formats" : [ "yyyy-MM-dd'T'HH:mm:ssZ", "yyyy-MM-dd'T'HH:mm:ss.SSSZ" ]
+        }
+    },
+    {
+        "geoip" : {
+          "field" : "ClientIP",
+          "target_field": "ClientIP",
+          "properties": [
+          "ip",
+          "country_iso_code",
+          "country_name",
+          "continent_name",
+          "region_iso_code",
+          "region_name",
+          "city_name",
+          "timezone",
+          "location"
+        ]
+        }
+      },
+      {
+        "user_agent" : {
+          "field" : "ClientRequestUserAgent",
+          "target_field" : "UserAgent"
+        }
+      }
+  ]
+}
+

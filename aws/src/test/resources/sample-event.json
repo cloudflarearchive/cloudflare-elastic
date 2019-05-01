@@ -1,0 +1,41 @@
+{
+    "Records": [
+        {
+            "awsRegion": "us-east-1",
+            "eventName": "ObjectCreated:Put",
+            "eventSource": "aws:s3",
+            "eventTime": "2019-04-30T23:25:57.009Z",
+            "eventVersion": "2.1",
+            "requestParameters": {
+                "sourceIPAddress": "12.161.168.178"
+            },
+            "responseElements": {
+                "x-amz-id-2": "HqKoM8UF1ip6pK8nvBDczYoyveqRzaGpec5ScK1xFm4FOOC3HKEAnQZ5sLzgeFwGaRUoJYObS+4=",
+                "x-amz-request-id": "AEC88F2428180B17"
+            },
+            "s3": {
+                "configurationId": "b6907a05-1073-4bcf-9a0f-366692413706",
+                "bucket": {
+                    "name": "andrew-cloudflare-logs",
+                    "ownerIdentity": {
+                        "principalId": "A165S1FYTEWVZY"
+                    },
+                    "arn": "arn:aws:s3:::andrew-cloudflare-logs"
+                },
+                "object": {
+                    "key": "sample-log-small.log.gz",
+                    "size": 789,
+                    "eTag": "70e8a0ffe177fa4d4b63ef1b3e8d8f7f",
+                    "versionId": "",
+                    "sequencer": "005CC8D984F1B1D435",
+                    "urlDecodedKey": "sample-log-small.log.gz"
+                },
+                "s3SchemaVersion": "1.0"
+            },
+            "userIdentity": {
+                "principalId": "A165S1FYTEWVZY"
+            },
+            "glacierEventData": null
+        }
+    ]
+}
