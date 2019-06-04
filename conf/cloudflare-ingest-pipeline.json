@@ -2,6 +2,22 @@
   "description" : "Cloudflare Log Pipeline",
   "processors" : [
     {
+        "date" : {
+          "field" : "EdgeStartTimestamp",
+          "formats" : [ "yyyy-MM-dd'T'HH:mm:ssZ", "yyyy-MM-dd'T'HH:mm:ss.SSSZ" ],
+          "timezone": "UTC",
+          "target_field" : "@timestamp"
+        }
+    },
+    {
+        "date" : {
+          "field" : "EdgeStartTimestamp",
+          "formats" : [ "yyyy-MM-dd'T'HH:mm:ssZ", "yyyy-MM-dd'T'HH:mm:ss.SSSZ" ],
+          "timezone": "UTC",
+          "target_field" : "EdgeStartTimestamp"
+        }
+    },
+    {
         "date_index_name" : {
           "field" : "EdgeStartTimestamp",
           "index_name_prefix" : "cloudflare-",
