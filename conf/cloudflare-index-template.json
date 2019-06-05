@@ -188,7 +188,7 @@
                "fields": {
                   "keyword": {
                      "type": "keyword",
-                     "ignore_above": 256
+                     "ignore_above": 512
                   }
                },
                "type": "text"
@@ -202,8 +202,8 @@
             "ClientRequestReferer": {
                "fields": {
                   "keyword": {
-                     "ignore_above": 256,
-                     "type": "keyword"
+                     "type": "keyword",
+                     "ignore_above": 512
                   }
                },
                "type": "text"
@@ -288,7 +288,7 @@
                "fields": {
                   "keyword": {
                      "type": "keyword",
-                     "ignore_above": 256
+                     "ignore_above": 512
                   }
                }
             },
