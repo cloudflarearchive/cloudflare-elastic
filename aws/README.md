@@ -1,9 +1,9 @@
-# cloudflare-elastic
-AWS Lambda Function for Forwarding Cloudflare Logs to Elasticsearch
+# AWS Lambda Function for Forwarding Cloudflare Logs to Elasticsearch
 
+This lambda function will collect Cloudflare logs from an S3 bucket and forward them to an Elasticsearch cluster running on **[Elastic Cloud](https://cloud.elastic.co)**.
 
 ### Build
-```./gradlew clean build```
+**```./gradlew clean build```**
 
 
 ### Install
@@ -33,20 +33,13 @@ Additionally, the following environment variables can optionally be configured.
 | --- | --- | --- |
 | elastic_port | Endpoint port number | 9243 |
 | elastic_index | The index pattern to use | cloudflare-* |
-| elastic_pipeline | The ingest pipeline to use for pre-processing | cloudflare-pipeline |
+| elastic_pipeline | The ingest pipeline to use for pre-processing (**cloudflare-pipeline-(weekly, daily)**) | cloudflare-pipeline-weekly |
 | elastic_use_https | Whether to use SSL/TLS to connect | true |
 | elastic_bulk_actions | Number of log messages to send to Elasticsearch per batch; can be tuned for scale and speed | 100 |
 | elastic_bulk_concurrency | Number of concurrent requests to Elasticsearch; can be tuned for scale and speed | 2 |
 | elastic_debug | Enable verbose logging | false |
 | aws_access_key | Can be used to override permissions from execution role; typically not needed |  |
 | aws_secret_key | Can be used to override permissions from execution role; typically not needed |  |
-
-##### Configure Elasticsearch
-
-The lambda function depends on Elasticsearch being configured with an ingest pipeline and an index template. Definitions for these are in the conf/ folder. To install to your Elasticsearch cluster, run this command:
-
-```./install-artifacts.sh -e https://<REST API ENDPOINT>:<PORT> -u <ELASTIC USER> -p <ELASTIC PASSWORD>```
-
 
 
 
