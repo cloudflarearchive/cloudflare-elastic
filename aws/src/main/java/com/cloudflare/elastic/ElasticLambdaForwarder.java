@@ -89,15 +89,7 @@ public class ElasticLambdaForwarder implements RequestHandler<S3Event, Void>
     private static boolean ELASTIC_DEBUG       = false;
     private static boolean USE_AWS_CREDENTIALS = false;
 
-    private static final String INDEX_MAPPING_TYPE = "doc"; // XXX FIX THIS TO BE _DOC AFTER DASHBOARDS ARE CONVERTED
-
-    /*
-        XXX - THINGS TO FIX
-
-        1. Change mapping type to _doc
-        2. Implement time-based indexing
-        3. S3 credentials
-     */
+    private static final String INDEX_MAPPING_TYPE = "doc";
 
     @Override
     public Void handleRequest(S3Event event, Context context)
