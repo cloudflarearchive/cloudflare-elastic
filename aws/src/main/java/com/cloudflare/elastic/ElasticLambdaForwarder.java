@@ -81,7 +81,7 @@ public class ElasticLambdaForwarder implements RequestHandler<S3Event, Void>
     private static int    BULK_CONCURRENCY     = 2;
     private static int    ELASTIC_PORT         = 9243;
     private static String ELASTIC_INDEX        = "cloudflare";
-    private static String ELASTIC_PIPELINE     = "cloudflare-pipeline";
+    private static String ELASTIC_PIPELINE     = "cloudflare-pipeline-weekly";
     private static String ELASTIC_HOSTNAME     = null;
     private static String ELASTIC_USERNAME     = null;
     private static String ELASTIC_PASSWORD     = null;

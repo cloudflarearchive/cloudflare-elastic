@@ -1,5 +1,5 @@
 {
-  "description" : "Cloudflare Log Pipeline",
+  "description" : "Cloudflare Log Pipeline (Daily Indices)",
   "processors" : [
     {
         "date" : {
