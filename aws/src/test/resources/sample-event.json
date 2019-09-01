@@ -4,17 +4,17 @@
             "awsRegion": "us-east-1",
             "eventName": "ObjectCreated:Put",
             "eventSource": "aws:s3",
-            "eventTime": "2019-04-30T23:25:57.009Z",
+            "eventTime": "2019-08-20T23:50:25.237Z",
             "eventVersion": "2.1",
             "requestParameters": {
-                "sourceIPAddress": "12.161.168.178"
+                "sourceIPAddress": "96.74.98.114"
             },
             "responseElements": {
-                "x-amz-id-2": "HqKoM8UF1ip6pK8nvBDczYoyveqRzaGpec5ScK1xFm4FOOC3HKEAnQZ5sLzgeFwGaRUoJYObS+4=",
-                "x-amz-request-id": "AEC88F2428180B17"
+                "x-amz-id-2": "cm4JWvCxJ38sKPSwg1P1KTkokJ5bqARc8ZgSytlk4Kczzzs0PHCXlw4ElglR8CcO+O8rZ5y6aXI=",
+                "x-amz-request-id": "B8A56BDD74C5419D"
             },
             "s3": {
-                "configurationId": "b6907a05-1073-4bcf-9a0f-366692413706",
+                "configurationId": "a01cbfec-2239-4b54-bd87-0f3a418353ec",
                 "bucket": {
                     "name": "andrew-cloudflare-logs",
                     "ownerIdentity": {
@@ -23,12 +23,12 @@
                     "arn": "arn:aws:s3:::andrew-cloudflare-logs"
                 },
                 "object": {
-                    "key": "sample-log-small.log.gz",
-                    "size": 789,
-                    "eTag": "70e8a0ffe177fa4d4b63ef1b3e8d8f7f",
+                    "key": "sample-log-small.json.gz",
+                    "size": 790,
+                    "eTag": "2ccf37aee4e038437fbb458181da7111",
                     "versionId": "",
-                    "sequencer": "005CC8D984F1B1D435",
-                    "urlDecodedKey": "sample-log-small.log.gz"
+                    "sequencer": "005D5C87412C3129C9",
+                    "urlDecodedKey": "sample-log-small.json.gz"
                 },
                 "s3SchemaVersion": "1.0"
             },

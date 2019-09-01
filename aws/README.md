@@ -8,7 +8,7 @@ This lambda function will collect Cloudflare logs from an S3 bucket and forward 
 
 ### Install
 
-Upload build/distributions/cloudflare-elastic-lambda.zip to AWS. Due to the size of the distribution, you may need to upload the file to an S3 bucket before configuring.
+Upload build/distributions/cloudflare-elastic-aws.zip to AWS. Due to the size of the distribution, you may need to upload the file to an S3 bucket before configuring.
 
 
 ### Configure
