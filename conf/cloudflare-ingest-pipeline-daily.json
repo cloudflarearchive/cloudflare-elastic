@@ -64,8 +64,9 @@
       }
     },
     {
-      "remove" : {
+      "rename": {
         "field": "ClientRequestProtocol",
+        "target_field": "cloudflare.client.request.protocol",
         "ignore_missing": true
       }
     },
@@ -446,11 +447,23 @@
       }
     },
     {
+        "remove" : {
+            "if" : "ctx.OriginResponseHTTPExpires == ''",
+            "field" : "OriginResponseHTTPExpires"
+        }
+    },
+    {
       "rename": {
         "field": "OriginResponseHTTPExpires",
         "target_field": "cloudflare.origin.response.http.expires",
         "ignore_missing": true
       }
+    },
+    {
+        "remove" : {
+            "if" : "ctx.OriginResponseHTTPLastModified == ''",
+            "field" : "OriginResponseHTTPLastModified"
+        }
     },
     {
       "rename": {
@@ -580,3 +593,4 @@
     }
   ]
 }
+

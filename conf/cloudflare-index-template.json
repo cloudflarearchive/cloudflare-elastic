@@ -4,10 +4,37 @@
    ],
    "mappings": {
       "properties": {
+         "observer.vendor": {
+            "type": "keyword"
+         },
+         "observer.type": {
+            "type": "keyword"
+         },
+         "ecs.version": {
+            "type": "keyword"
+         },
+         "event.dataset": {
+            "type": "keyword"
+         },
          "cloudflare.waf.flags": {
             "type": "keyword"
          },
+         "cloudflare.firewall.matches.actions" : {
+            "type": "keyword"
+         },
+         "cloudflare.firewall.matches.rule_ids" : {
+            "type": "keyword"
+         },
+         "cloudflare.firewall.matches.sources" : {
+            "type": "keyword"
+         },
+         "cloudflare.edge.colo.code" : {
+            "type": "keyword"
+         },
          "cloudflare.client.ssl.protocol": {
+            "type": "keyword"
+         },
+         "cloudflare.client.request.protocol" : {
             "type": "keyword"
          },
          "cloudflare.waf.rule.id": {
@@ -59,11 +86,20 @@
                },
                "region_code": {
                   "type": "keyword"
+               },
+               "continent_name": {
+                  "type": "keyword"
+               },
+               "region_iso_code": {
+                  "type": "keyword"
                }
             }
          },
          "cloudflare.origin.response.time": {
             "type": "long"
+         },
+         "cloudflare.origin.ip": {
+            "type": "ip"
          },
          "@version": {
             "type": "keyword"
@@ -96,6 +132,51 @@
             "type": "long"
          },
          "user_agent.original": {
+            "type": "keyword"
+         },
+         "user_agent.device.name": {
+            "type": "keyword"
+         },
+         "user_agent.name": {
+            "type": "keyword"
+         },
+         "user_agent.os.full": {
+            "type": "keyword"
+         },
+         "user_agent.os.kernel": {
+            "type": "keyword"
+         },
+         "user_agent.os.platform": {
+            "type": "keyword"
+         },
+         "user_agent.os.name": {
+            "type": "keyword"
+         },
+         "user_agent.os.version": {
+            "type": "keyword"
+         },
+         "user_agent.version": {
+            "type": "keyword"
+         },
+         "user_agent.major": {
+            "type": "keyword"
+         },
+         "user_agent.minor": {
+            "type": "keyword"
+         },
+         "user_agent.patch": {
+            "type": "keyword"
+         },
+         "user_agent.build": {
+            "type": "keyword"
+         },
+         "user_agent.os_name": {
+            "type": "keyword"
+         },
+         "user_agent.os_major": {
+            "type": "keyword"
+         },
+         "user_agent.os_minor": {
             "type": "keyword"
          },
          "cloudflare.edge.response.compression_ratio": {
@@ -258,7 +339,8 @@
    "settings": {
       "index": {
          "number_of_shards": "1",
-         "number_of_replicas": "1"
+         "number_of_replicas": "1",
+         "mapping.ignore_malformed": true
       }
    }
 }
