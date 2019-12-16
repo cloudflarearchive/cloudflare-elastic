@@ -1,412 +1,346 @@
 {
-   "index_patterns" : [
+   "index_patterns": [
       "cloudflare-*"
    ],
-   "mappings" : {
-      "doc" : {
-         "properties": {
-            "UserAgent": {
-               "properties": {
-                  "name": {
-                     "type": "keyword"
-                  },
-                  "os_major": {
-                     "type": "keyword"
-                  },
-                  "patch": {
-                     "type": "keyword"
-                  },
-                  "os_name": {
-                     "type": "text",
-                     "fields": {
-                        "keyword": {
-                           "ignore_above": 256,
-                           "type": "keyword"
-                        }
-                     }
-                  },
-                  "minor": {
-                     "type": "keyword"
-                  },
-                  "device": {
-                     "type": "keyword"
-                  },
-                  "os_minor": {
-                     "type": "keyword"
-                  },
-                  "build": {
-                     "type": "keyword"
-                  },
-                  "major": {
-                     "type": "keyword"
-                  },
-                  "os": {
-                     "type": "text",
-                     "fields": {
-                        "keyword": {
-                           "type": "keyword",
-                           "ignore_above": 256
-                        }
-                     }
-                  }
-               }
-            },
-            "WAFFlags": {
-               "fields": {
-                  "keyword": {
-                     "type": "keyword",
-                     "ignore_above": 256
-                  }
+   "mappings": {
+      "properties": {
+         "observer.vendor": {
+            "type": "keyword"
+         },
+         "observer.type": {
+            "type": "keyword"
+         },
+         "ecs.version": {
+            "type": "keyword"
+         },
+         "event.dataset": {
+            "type": "keyword"
+         },
+         "cloudflare.waf.flags": {
+            "type": "keyword"
+         },
+         "cloudflare.firewall.matches.actions" : {
+            "type": "keyword"
+         },
+         "cloudflare.firewall.matches.rule_ids" : {
+            "type": "keyword"
+         },
+         "cloudflare.firewall.matches.sources" : {
+            "type": "keyword"
+         },
+         "cloudflare.edge.colo.code" : {
+            "type": "keyword"
+         },
+         "cloudflare.client.ssl.protocol": {
+            "type": "keyword"
+         },
+         "cloudflare.client.request.protocol" : {
+            "type": "keyword"
+         },
+         "cloudflare.waf.rule.id": {
+            "type": "keyword"
+         },
+         "cloudflare.edge.colo.id": {
+            "type": "integer"
+         },
+         "source.geo": {
+            "properties": {
+               "ip": {
+                  "type": "ip"
                },
-               "type": "text"
-            },
-            "ClientSSLProtocol": {
-               "fields": {
-                  "keyword": {
-                     "ignore_above": 256,
-                     "type": "keyword"
-                  }
+               "postal_code": {
+                  "type": "keyword"
                },
-               "type": "text"
-            },
-            "WAFRuleID": {
-               "type": "text",
-               "fields": {
-                  "keyword": {
-                     "ignore_above": 256,
-                     "type": "keyword"
-                  }
-               }
-            },
-            "EdgeColoID": {
-               "type": "long"
-            },
-            "ClientIP": {
-               "properties": {
-                  "ip": {
-                     "type": "keyword"
-                  },
-                  "postal_code": {
-                     "type": "keyword"
-                  },
-                  "location": {
-                     "type": "geo_point"
-                  },
-                  "dma_code": {
-                     "type": "long"
-                  },
-                  "country_code3": {
-                     "type": "keyword"
-                  },
-                  "latitude": {
-                     "type": "float"
-                  },
-                  "longitude": {
-                     "type": "float"
-                  },
-                  "region_name": {
-                     "fields": {
-                        "keyword": {
-                           "ignore_above": 256,
-                           "type": "keyword"
-                        }
-                     },
-                     "type": "text"
-                  },
-                  "city_name": {
-                     "type": "keyword"
-                  },
-                  "timezone": {
-                     "type": "keyword"
-                  },
-                  "country_code2": {
-                     "type": "keyword"
-                  },
-                  "continent_code": {
-                     "type": "keyword"
-                  },
-                  "country_name": {
-                     "type": "keyword"
-                  },
-                  "region_code": {
-                     "type": "keyword"
-                  }
-               }
-            },
-            "OriginResponseTime": {
-               "type": "long"
-            },
-            "@version": {
-               "type": "keyword"
-            },
-            "CacheCacheStatus": {
-               "type": "keyword"
-            },
-            "ClientCountry": {
-               "type": "keyword"
-            },
-            "EdgeServerIP": {
-               "type": "keyword"
-            },
-            "WAFMatchedVar": {
-               "type": "text",
-               "fields": {
-                  "keyword": {
-                     "ignore_above": 256,
-                     "type": "keyword"
-                  }
-               }
-            },
-            "WAFAction": {
-               "type": "text",
-               "fields": {
-                  "keyword": {
-                     "type": "keyword",
-                     "ignore_above": 256
-                  }
-               }
-            },
-            "EdgePathingStatus": {
-               "type": "keyword"
-            },
-            "message": {
-               "fields": {
-                  "keyword": {
-                     "ignore_above": 256,
-                     "type": "keyword"
-                  }
+               "location": {
+                  "type": "geo_point"
                },
-               "type": "text"
-            },
-            "ClientASN": {
-               "type": "long"
-            },
-            "EdgeRateLimitID": {
-               "type": "long"
-            },
-            "ClientRequestUserAgent": {
-               "fields": {
-                  "keyword": {
-                     "type": "keyword",
-                     "ignore_above": 512
-                  }
+               "dma_code": {
+                  "type": "long"
                },
-               "type": "text"
-            },
-            "EdgeResponseCompressionRatio": {
-               "type": "float"
-            },
-            "ParentRayID": {
-               "type": "keyword"
-            },
-            "ClientRequestReferer": {
-               "fields": {
-                  "keyword": {
-                     "type": "keyword",
-                     "ignore_above": 512
-                  }
+               "country_code3": {
+                  "type": "keyword"
                },
-               "type": "text"
-            },
-            "CacheTieredFill": {
-               "type": "boolean"
-            },
-            "RayID": {
-               "type": "keyword"
-            },
-            "ClientIPClass": {
-               "fields": {
-                  "keyword": {
-                     "type": "keyword",
-                     "ignore_above": 256
-                  }
+               "latitude": {
+                  "type": "float"
                },
-               "type": "text"
-            },
-            "ClientRequestProtocol": {
-               "type": "text",
-               "fields": {
-                  "keyword": {
-                     "ignore_above": 256,
-                     "type": "keyword"
-                  }
-               }
-            },
-            "EdgeRequestHost": {
-               "type": "keyword"
-            },
-            "CacheResponseBytes": {
-               "type": "long"
-            },
-            "ClientDeviceType": {
-               "type": "keyword"
-            },
-            "EdgeRateLimitAction": {
-               "fields": {
-                  "keyword": {
-                     "ignore_above": 256,
-                     "type": "keyword"
-                  }
+               "longitude": {
+                  "type": "float"
                },
-               "type": "text"
-            },
-            "EdgeEndTimestamp": {
-               "type": "date"
-            },
-            "OriginResponseHTTPExpires": {
-               "fields": {
-                  "keyword": {
-                     "type": "keyword",
-                     "ignore_above": 256
-                  }
+               "region_name": {
+                  "type": "keyword"
                },
-               "type": "text"
-            },
-            "EdgeResponseStatus": {
-               "type": "long"
-            },
-            "ClientRequestBytes": {
-               "type": "long"
-            },
-            "CacheResponseStatus": {
-               "type": "long"
-            },
-            "ClientRequestHost": {
-               "type": "keyword"
-            },
-            "OriginSSLProtocol": {
-               "type": "text",
-               "fields": {
-                  "keyword": {
-                     "type": "keyword",
-                     "ignore_above": 256
-                  }
-               }
-            },
-            "ClientRequestURI": {
-               "type": "text",
-               "fields": {
-                  "keyword": {
-                     "type": "keyword",
-                     "ignore_above": 512
-                  }
-               }
-            },
-            "OriginResponseBytes": {
-               "type": "long"
-            },
-            "WorkerCPUTime": {
-               "type": "long"
-            },
-            "OriginResponseHTTPLastModified": {
-               "fields": {
-                  "keyword": {
-                     "type": "keyword",
-                     "ignore_above": 256
-                  }
+               "city_name": {
+                  "type": "keyword"
                },
-               "type": "text"
-            },
-            "EdgeStartTimestamp": {
-               "type": "date"
-            },
-            "EdgePathingSrc": {
-               "type": "keyword"
-            },
-            "WAFProfile": {
-               "type": "text",
-               "fields": {
-                  "keyword": {
-                     "type": "keyword",
-                     "ignore_above": 256
-                  }
-               }
-            },
-            "EdgePathingOp": {
-               "type": "keyword"
-            },
-            "SecurityLevel": {
-               "type": "keyword"
-            },
-            "WAFRuleMessage": {
-               "fields": {
-                  "keyword": {
-                     "type": "keyword",
-                     "ignore_above": 256
-                  }
+               "timezone": {
+                  "type": "keyword"
                },
-               "type": "text"
-            },
-            "OriginResponseStatus": {
-               "type": "long"
-            },
-            "@timestamp": {
-               "type": "date"
-            },
-            "OriginIP": {
-               "type": "keyword"
-            },
-            "ClientRequestMethod": {
-               "type": "keyword"
-            },
-            "ZoneID": {
-               "type": "long"
-            },
-            "ClientSrcPort": {
-               "type": "long"
-            },
-            "WorkerSubrequest": {
-               "type": "boolean"
-            },
-            "WorkerStatus": {
-               "type": "text",
-               "fields": {
-                  "keyword": {
-                     "type": "keyword",
-                     "ignore_above": 256
-                  }
-               }
-            },
-            "EdgeResponseContentType": {
-               "fields": {
-                  "keyword": {
-                     "ignore_above": 256,
-                     "type": "keyword"
-                  }
+               "country_code2": {
+                  "type": "keyword"
                },
-               "type": "text"
-            },
-            "ClientSSLCipher": {
-               "fields": {
-                  "keyword": {
-                     "type": "keyword",
-                     "ignore_above": 256
-                  }
+               "continent_code": {
+                  "type": "keyword"
                },
-               "type": "text"
-            },
-            "EdgeResponseBytes": {
-               "type": "long"
-            },
-            "WorkerSubrequestCount": {
-               "type": "long"
-            },
-            "ClientRequestPath": {
-               "type": "text",
-               "fields": {
-                  "keyword": {
-                     "ignore_above": 256,
-                     "type": "keyword"
-                  }
+               "country_name": {
+                  "type": "keyword"
+               },
+               "region_code": {
+                  "type": "keyword"
+               },
+               "continent_name": {
+                  "type": "keyword"
+               },
+               "region_iso_code": {
+                  "type": "keyword"
                }
             }
+         },
+         "cloudflare.origin.response.time": {
+            "type": "long"
+         },
+         "cloudflare.origin.ip": {
+            "type": "ip"
+         },
+         "@version": {
+            "type": "keyword"
+         },
+         "cloudflare.cache.status": {
+            "type": "keyword"
+         },
+         "source.geo.country_iso_code": {
+            "type": "keyword"
+         },
+         "cloudflare.edge.server.ip": {
+            "type": "ip"
+         },
+         "observer.ip": {
+            "type": "ip"
+         },
+         "cloudflare.waf.matched_var": {
+            "type": "keyword"
+         },
+         "cloudflare.waf.action": {
+            "type": "keyword"
+         },
+         "cloudflare.edge.pathing.status": {
+            "type": "keyword"
+         },
+         "source.as.number": {
+            "type": "long"
+         },
+         "cloudflare.edge.rate.limit.id": {
+            "type": "long"
+         },
+         "user_agent.original": {
+            "type": "keyword"
+         },
+         "user_agent.device.name": {
+            "type": "keyword"
+         },
+         "user_agent.name": {
+            "type": "keyword"
+         },
+         "user_agent.os.full": {
+            "type": "keyword"
+         },
+         "user_agent.os.kernel": {
+            "type": "keyword"
+         },
+         "user_agent.os.platform": {
+            "type": "keyword"
+         },
+         "user_agent.os.name": {
+            "type": "keyword"
+         },
+         "user_agent.os.version": {
+            "type": "keyword"
+         },
+         "user_agent.version": {
+            "type": "keyword"
+         },
+         "user_agent.major": {
+            "type": "keyword"
+         },
+         "user_agent.minor": {
+            "type": "keyword"
+         },
+         "user_agent.patch": {
+            "type": "keyword"
+         },
+         "user_agent.build": {
+            "type": "keyword"
+         },
+         "user_agent.os_name": {
+            "type": "keyword"
+         },
+         "user_agent.os_major": {
+            "type": "keyword"
+         },
+         "user_agent.os_minor": {
+            "type": "keyword"
+         },
+         "cloudflare.edge.response.compression_ratio": {
+            "type": "float"
+         },
+         "cloudflare.parent.ray_id": {
+            "type": "keyword"
+         },
+         "http.request.referrer": {
+            "type": "keyword"
+         },
+         "cloudflare.cache.tiered.fill": {
+            "type": "boolean"
+         },
+         "cloudflare.ray_id": {
+            "type": "keyword"
+         },
+         "cloudflare.client.ip.class": {
+            "type": "keyword"
+         },
+         "http.version": {
+            "type": "keyword"
+         },
+         "cloudflare.edge.request.host": {
+            "type": "keyword"
+         },
+         "cloudflare.cache.response.bytes": {
+            "type": "long"
+         },
+         "http.response.bytes": {
+            "type": "long"
+         },
+         "cloudflare.device.type": {
+            "type": "keyword"
+         },
+         "cloudflare.edge.rate.limit.action": {
+            "type": "keyword"
+         },
+         "cloudflare.edge.end.timestamp": {
+            "type": "date"
+         },
+         "event.end": {
+            "type": "date"
+         },
+         "cloudflare.origin.response.http.expires": {
+            "type": "date",
+            "format": "E, d MMM uuuu HH:mm:ss 'UTC'"
+         },
+         "cloudflare.edge.response.status": {
+            "type": "long"
+         },
+         "http.request.bytes": {
+            "type": "long"
+         },
+         "cloudflare.cache.response.status": {
+            "type": "long"
+         },
+         "http.response.status_code": {
+            "type": "long"
+         },
+         "url.domain": {
+            "type": "keyword"
+         },
+         "cloudflare.origin.ssl.protocol": {
+            "type": "keyword"
+         },
+         "url.full": {
+            "type": "keyword"
+         },
+         "cloudflare.origin.response.bytes": {
+            "type": "long"
+         },
+         "cloudflare.worker.cpu_time": {
+            "type": "long"
+         },
+         "cloudflare.origin.response.http.last_modified": {
+            "type": "date",
+            "ignore_malformed": true
+         },
+         "cloudflare.edge.start.timestamp": {
+            "type": "date"
+         },
+         "event.start": {
+            "type": "date"
+         },
+         "cloudflare.edge.pathing.src": {
+            "type": "keyword"
+         },
+         "cloudflare.waf.profile": {
+            "type": "keyword"
+         },
+         "cloudflare.edge.pathing.op": {
+            "type": "keyword"
+         },
+         "cloudflare.security_level": {
+            "type": "keyword"
+         },
+         "cloudflare.waf.rule.message": {
+            "type": "keyword"
+         },
+         "cloudflare.http.response.status_code": {
+            "type": "long"
+         },
+         "@timestamp": {
+            "type": "date"
+         },
+         "server.ip": {
+            "type": "ip"
+         },
+         "destination.ip": {
+            "type": "ip"
+         },
+         "http.request.method": {
+            "type": "keyword"
+         },
+         "cloudflare.zone_id": {
+            "type": "integer"
+         },
+         "source.port": {
+            "type": "long"
+         },
+         "source.address" : {
+            "type" : "keyword"
+         },
+         "source.ip" : {
+            "type" : "ip"
+         },
+         "client.port": {
+            "type": "long"
+         },
+         "client.ip" : {
+            "type" : "ip"
+         },
+         "client.address": {
+            "type" : "keyword"
+         },
+         "cloudflare.worker.subrequest": {
+            "type": "boolean"
+         },
+         "cloudflare.worker.subrequest_count": {
+            "type": "long"
+         },
+         "cloudflare.worker.status": {
+            "type": "keyword"
+         },
+         "cloudflare.edge.response.content_type": {
+            "type": "keyword"
+         },
+         "cloudflare.client.ssl.cipher": {
+            "type": "keyword"
+         },
+         "cloudflare.edge.response.bytes": {
+            "type": "long"
+         },
+         "url.path": {
+            "type": "keyword"
          }
       }
    },
-   "settings" : {
-      "index" : {
-         "number_of_shards" : "1",
-         "number_of_replicas" : "1"
+   "settings": {
+      "index": {
+         "number_of_shards": "1",
+         "number_of_replicas": "1",
+         "mapping.ignore_malformed": true
       }
    }
 }

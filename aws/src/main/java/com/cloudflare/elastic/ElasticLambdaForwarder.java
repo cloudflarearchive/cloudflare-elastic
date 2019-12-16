@@ -89,7 +89,6 @@ public class ElasticLambdaForwarder implements RequestHandler<S3Event, Void>
     private static boolean ELASTIC_DEBUG       = false;
     private static boolean USE_AWS_CREDENTIALS = false;
 
-    private static final String INDEX_MAPPING_TYPE = "doc";
 
     @Override
     public Void handleRequest(S3Event event, Context context)
@@ -145,7 +144,7 @@ public class ElasticLambdaForwarder implements RequestHandler<S3Event, Void>
                     BufferedReader br = new BufferedReader(new InputStreamReader(gzip, StandardCharsets.UTF_8)))
             {
                 for (String line; (line = br.readLine()) != null;) {
-                    processor.add(new IndexRequest(index, INDEX_MAPPING_TYPE).setPipeline(pipeline).source(line, XContentType.JSON));
+                    processor.add(new IndexRequest(index).setPipeline(pipeline).source(line, XContentType.JSON));
                 }
             }
             catch (IOException e) {

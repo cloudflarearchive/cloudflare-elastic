@@ -12,6 +12,7 @@ function usage {
 username=""
 password=""
 endpoint=""
+auth=""
 
 while getopts ":u:p:e:h" opt; do
   case $opt in
@@ -36,16 +37,9 @@ while getopts ":u:p:e:h" opt; do
 done
 
 
-if [ -z "$username" ];
+if [[ "$username" && "$password" ]];
 then
-    usage
-    exit 1
-fi
-
-if [ -z "$password" ];
-then
-    usage
-    exit 1
+    auth="-u $username:$password"
 fi
 
 if [ -z "$endpoint" ];
@@ -54,13 +48,14 @@ then
     exit 1
 fi
 
+
 echo ""
 echo "Installing ingest pipeline to $endpoint for daily indices"
-curl -X PUT -u $username:$password "$endpoint/_ingest/pipeline/cloudflare-pipeline-daily" -H 'Content-Type: application/json' -d @cloudflare-ingest-pipeline-daily.json
+curl -X PUT $auth "$endpoint/_ingest/pipeline/cloudflare-pipeline-daily" -H 'Content-Type: application/json' -d @cloudflare-ingest-pipeline-daily.json
 echo ""
 echo "Installing ingest pipeline to $endpoint for weekly indices"
-curl -X PUT -u $username:$password "$endpoint/_ingest/pipeline/cloudflare-pipeline-weekly" -H 'Content-Type: application/json' -d @cloudflare-ingest-pipeline-weekly.json
+curl -X PUT $auth "$endpoint/_ingest/pipeline/cloudflare-pipeline-weekly" -H 'Content-Type: application/json' -d @cloudflare-ingest-pipeline-weekly.json
 echo ""
 echo "Installing index template to $endpoint"
-curl -X PUT -u $username:$password "$endpoint/_template/cloudflare" -H 'Content-Type: application/json' -d @cloudflare-index-template.json
+curl -X PUT $auth "$endpoint/_template/cloudflare" -H 'Content-Type: application/json' -d @cloudflare-index-template.json
 echo ""
