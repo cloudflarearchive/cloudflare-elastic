@@ -1,3 +1,0 @@
-# cloudflare-elastic
-
-Coming...
