@@ -6,6 +6,8 @@
 
 This lambda function will collect Cloudflare logs from an S3 bucket and forward them to an Elasticsearch cluster running on **[Elastic Cloud](https://cloud.elastic.co)**.
 
+The official documentation can be found on [Cloudflare's](https://developers.cloudflare.com/logs/analytics-integrations/elastic/) site 
+
 ### Build
 **```./gradlew clean build```**
 
@@ -46,6 +48,13 @@ Additionally, the following environment variables can optionally be configured.
 | aws_secret_key | Can be used to override permissions from execution role; typically not needed |  |
 
 
+### Install Additional Artifacts
 
+Change to the *conf* directory and issue the following command. 
+```
+./install-artifacts.sh -u elastic -p <RANDOM PASSWORD> -e https://_<YOUR DEPLOYMENT ENDPOINT>_:9243
+```
+
+This will install the ingest node processor and index templates.
 
 
