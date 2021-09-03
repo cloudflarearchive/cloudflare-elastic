@@ -22,6 +22,7 @@ Upload build/distributions/cloudflare-elastic-aws.zip to AWS. Due to the size of
 ##### Configure handler method
 
 com.cloudflare.elastic.ElasticLambdaForwarder::handleRequest
+com.cloudflare.elastic.ElasticLambdaSNSForwarder::handleRequest
 
 ##### Configure environment variables
 
