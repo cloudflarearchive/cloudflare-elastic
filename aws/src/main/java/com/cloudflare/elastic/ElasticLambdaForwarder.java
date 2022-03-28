@@ -49,6 +49,31 @@ import org.elasticsearch.common.unit.ByteSizeUnit;
 import org.elasticsearch.common.unit.ByteSizeValue;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
+import javax.net.ssl.SSLContext;
+import org.apache.http.ssl.TrustStrategy;
+import org.apache.http.ssl.SSLContexts;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContextBuilder;
+import org.apache.http.ssl.TrustStrategy;
+import org.apache.http.util.EntityUtils;
+
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLHandshakeException;
+import javax.net.ssl.SSLPeerUnverifiedException;
+
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -74,6 +99,7 @@ public class ElasticLambdaForwarder implements RequestHandler<S3Event, Void>
     private static final String ENV_ELASTIC_DEBUG        = "elastic_debug";
     private static final String ENV_AWS_ACCESS_KEY       = "aws_access_key";
     private static final String ENV_AWS_SECRET_KEY       = "aws_secret_key";
+    private static final String ENV_IGNORE_TLS_CERTIFICATE       = "ignore_tls_certificates";
 
     private LambdaLogger logger = null;
 
@@ -88,7 +114,9 @@ public class ElasticLambdaForwarder implements RequestHandler<S3Event, Void>
     private static boolean ELASTIC_HTTPS       = true;
     private static boolean ELASTIC_DEBUG       = false;
     private static boolean USE_AWS_CREDENTIALS = false;
+    private static boolean IGNORE_TLS_CERTIFICATE = false;
 
+    private static final String INDEX_MAPPING_TYPE = "doc";
 
     @Override
     public Void handleRequest(S3Event event, Context context)
@@ -144,7 +172,7 @@ public class ElasticLambdaForwarder implements RequestHandler<S3Event, Void>
                     BufferedReader br = new BufferedReader(new InputStreamReader(gzip, StandardCharsets.UTF_8)))
             {
                 for (String line; (line = br.readLine()) != null;) {
-                    processor.add(new IndexRequest(index).setPipeline(pipeline).source(line, XContentType.JSON));
+                    processor.add(new IndexRequest(index, INDEX_MAPPING_TYPE).setPipeline(pipeline).source(line, XContentType.JSON));
                 }
             }
             catch (IOException e) {
@@ -190,23 +218,42 @@ public class ElasticLambdaForwarder implements RequestHandler<S3Event, Void>
         return builder.build();
     }
 
-    private RestHighLevelClient client(String endpoint, int port, String username, String password, boolean https) throws IOException
+    private RestHighLevelClient client(String endpoint, int port, String username, String password, boolean https) throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException
     {
         CredentialsProvider provider = new BasicCredentialsProvider();
         provider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(username, password));
 
+        SSLContext sslContext = SSLContexts.custom()
+		        .loadTrustMaterial(null, new TrustStrategy() {
+					
+		            @Override
+		            public boolean isTrusted(final X509Certificate[] chain, final String authType) throws CertificateException {
+		                return true;
+		            }
+		        })
+                .build();
+                
+        HostnameVerifier allowAllHosts = new NoopHostnameVerifier();
+
         RestHighLevelClient client = new RestHighLevelClient(
                 RestClient.builder(
-                        new HttpHost(endpoint, port, https ? "https" : "http")).
-                        setHttpClientConfigCallback(
+                        new HttpHost(endpoint, port, https ? "https" : "http"))
+                        .setHttpClientConfigCallback(
                                 new RestClientBuilder.HttpClientConfigCallback() {
                                     @Override
                                     public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder builder)
                                     {
+                                        if (IGNORE_TLS_CERTIFICATE){
+                                            builder.setSSLContext(sslContext);
+                                            builder.setSSLHostnameVerifier(allowAllHosts);
+                                        }
                                         return builder.setDefaultCredentialsProvider(provider);
-                                    }}));
+                                    }})                        
+                        );
 
-        // Verify connection
+        
+      
+           // Verify connection
         ClusterHealthResponse health = client.cluster().health(new ClusterHealthRequest(), RequestOptions.DEFAULT);
         ClusterHealthStatus status = health.getStatus();
         logger.log("Connected to cluster: [" + health.getClusterName() + "] status: [" + status + "]");
@@ -292,6 +339,9 @@ public class ElasticLambdaForwarder implements RequestHandler<S3Event, Void>
 
         if (System.getenv(ENV_AWS_ACCESS_KEY) != null && System.getenv(ENV_AWS_SECRET_KEY) != null) {
             USE_AWS_CREDENTIALS = true;
+        }
+        if (System.getenv(ENV_IGNORE_TLS_CERTIFICATE) != null && System.getenv(ENV_IGNORE_TLS_CERTIFICATE) != null) {
+            IGNORE_TLS_CERTIFICATE = true;
         }
     }
 
