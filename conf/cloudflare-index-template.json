@@ -3,6 +3,62 @@
       "cloudflare-*"
    ],
    "mappings": {
+      "runtime": {
+         "Threats": {
+            "type": "keyword",
+            "script": {
+               "source": "if (doc['cloudflare.edge.pathing.src'].size() != 0 && doc['cloudflare.edge.pathing.op'].size() != 0 && doc['cloudflare.edge.pathing.status'].size() != 0) {\n  if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"user\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"ip\"))\n  { \n      return emit(\"ip block\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"user\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"ctry\"))\n  {\n      return emit(\"country block\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"user\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"zl\"))\n  {\n      return emit(\"routed by zone lockdown\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"user\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"ua\"))\n  {\n      return emit(\"blocked user agent\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"user\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"rateLimit\"))\n  {\n      return emit(\"blocked by rate-limiting rule\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"filterBasedFirewall\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"unknown\"))\n  {\n      return emit(\"blocked by filter based firewall\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"filterBasedFirewall\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"chl\"))\n  {\n      return emit(\"challenged by filter based firewall\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"bic\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"unknown\"))\n  {\n      return emit(\"browser integrity check\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"hot\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"unknown\"))\n  {\n      return emit(\"blocked hotlink\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"macro\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"chl\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"captchaFaill\"))\n  {\n      return emit(\"CAPTCHA challenge failed\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"macro\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"chl\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"jschlFail\"))\n  {\n      return emit(\"java script challenge failed\");\n  }\n}\nif (doc['cloudflare.edge.pathing.status'].size() != 0) {\n   return emit(doc['cloudflare.edge.pathing.status'].value);\n}\nemit(\"\");\n"
+            }
+         },
+         "Threats vs Requests": {
+            "type": "keyword",
+            "script": {
+               "source": "if (doc['cloudflare.edge.pathing.src'].size() != 0 && doc['cloudflare.edge.pathing.op'].size() != 0 && doc['cloudflare.edge.pathing.status'].size() != 0) {\n  if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"user\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"ip\"))\n  { \n      return emit(\"Threats\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"user\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"ctry\"))\n  {\n      return emit(\"Threats\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"user\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"zl\"))\n  {\n      return emit(\"Threats\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"user\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"ua\"))\n  {\n      return emit(\"Threats\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"user\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"rateLimit\"))\n  {\n      return emit(\"Threats\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"filterBasedFirewall\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"unknown\"))\n  {\n      return emit(\"Threats\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"filterBasedFirewall\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"chl\"))\n  {\n      return emit(\"Threats\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"bic\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"unknown\"))\n  {\n      return emit(\"Threats\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"hot\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"ban\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"unknown\"))\n  {\n      return emit(\"Threats\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"macro\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"chl\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"captchaFaill\"))\n  {\n      return emit(\"Threats\");\n  }\n  else if (doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"macro\")\n  && \n  doc['cloudflare.edge.pathing.op'].value.equalsIgnoreCase(\"chl\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"jschlFail\"))\n  {\n      return emit(\"Threats\");\n  }\n}\nemit(\"Requests\");\n"
+            }
+         },
+         "Bots": {
+            "type": "keyword",
+            "script": {
+               "source": "if (doc['cloudflare.edge.pathing.src'].size() != 0 && doc['cloudflare.edge.pathing.status'].size() != 0) {\n  if(doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"filterBasedFirewall\") && doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"captchaNew\")) { \n    return emit(\"Bots\");\n  }\n}\nemit(\"Requests\");\n"
+            }
+         },
+         "Bad Bots": {
+            "type": "long",
+            "script": {
+               "source": "int firstCount = 0;\nint secondCount = 0;\n\nif(doc['cloudflare.edge.pathing.src'].size() != 0 && doc['cloudflare.edge.pathing.status'].size() != 0) {\n  if (\n  doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"filterBasedFirewall\")\n  && \n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"captchaNew\")\n  ) \n  { firstCount = 1  }\n  \n  if (\n  doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"filterBasedFirewall\")\n  &&\n  doc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"captchaSucc\")\n  )\n  { secondCount = 1 }\n}\nemit(firstCount - secondCount);\n"
+            }
+         },
+         "EdgeResponseStatusClass": {
+            "type": "keyword",
+            "script": {
+               "source": "if (doc['cloudflare.edge.response.status'].size() != 0) {\n  if (doc['cloudflare.edge.response.status'].value > 199 && doc['cloudflare.edge.response.status'].value < 300)   { \n      return emit(\"2xx\");\n  }\n  if (doc['cloudflare.edge.response.status'].value > 299 && doc['cloudflare.edge.response.status'].value < 400)   { \n      return emit(\"3xx\");\n  }\n  if (doc['cloudflare.edge.response.status'].value > 399 && doc['cloudflare.edge.response.status'].value < 500)   { \n      return emit(\"4xx\");\n  }\n  if (doc['cloudflare.edge.response.status'].value > 499 && doc['cloudflare.edge.response.status'].value < 600)   { \n      return emit(\"5xx\");\n  }\n}\nemit(\"\");\n"
+            }
+         },
+         "CAPTCHAs Solved": {
+            "type": "keyword",
+            "script": {
+               "source": "if (doc['cloudflare.edge.pathing.src'].size() != 0 && doc['cloudflare.edge.pathing.status'].size() != 0 && doc['cloudflare.edge.pathing.src'].value.equalsIgnoreCase(\"filterBasedFirewall\") && \ndoc['cloudflare.edge.pathing.status'].value.equalsIgnoreCase(\"captchaSucc\")) { \n  emit(\"False Detected Bots\");\n}\nelse {\n   emit(\"Requests\");\n}"
+            }
+         },
+         "OriginResponseStatusClass": {
+            "type": "keyword",
+            "script": {
+               "source": "if (doc['cloudflare.http.response.status_code'].size() != 0) {\n  if (doc['cloudflare.http.response.status_code'].value > 199 && doc['cloudflare.http.response.status_code'].value < 300)   { \n    return emit(\"2xx\");\n  }\n  if (doc['cloudflare.http.response.status_code'].value > 299 && doc['cloudflare.http.response.status_code'].value < 400)   { \n      return emit(\"3xx\");\n  }\n  if (doc['cloudflare.http.response.status_code'].value > 399 && doc['cloudflare.http.response.status_code'].value < 500)   { \n      return emit(\"4xx\");\n  }\n  if (doc['cloudflare.http.response.status_code'].value > 499 && doc['cloudflare.http.response.status_code'].value < 600)   { \n      return emit(\"5xx\");\n  }\n  if (doc['cloudflare.http.response.status_code'].value == 0)   { \n      return emit(\"0 - Served from CF Edge\");\n  }\n}\nreturn emit(\"\");\n"
+            }
+         },
+         "CacheHitRateBandwidthPercentNotIn": {
+            "type": "long",
+            "script": {
+               "source": "if (\n  doc['cloudflare.cache.status'].size() != 0 && (\n    (!doc['cloudflare.cache.status'].value.equalsIgnoreCase(\"bypass\"))\n    ||\n    (!doc['cloudflare.cache.status'].value.equalsIgnoreCase(\"unknown\"))\n  )\n) { \n  emit(1);\n}\nelse {\n  emit(0);\n}"
+            }
+         },
+         "CacheHitRateBandwidthPercentIn": {
+            "type": "long",
+            "script": {
+               "source": "if (doc['cloudflare.cache.status'].size() != 0 && (\ndoc['cloudflare.cache.status'].value.equalsIgnoreCase(\"hit\")\n||\ndoc['cloudflare.cache.status'].value.equalsIgnoreCase(\"stale\")\n||\ndoc['cloudflare.cache.status'].value.equalsIgnoreCase(\"updating\")\n||\ndoc['cloudflare.cache.status'].value.equalsIgnoreCase(\"ignored\")\n||\ndoc['cloudflare.cache.status'].value.equalsIgnoreCase(\"revalidated\")))\n{ \n  emit(1);\n}\nelse {\n  emit(0);\n}"
+            }
+         }
+      },
       "properties": {
          "observer.vendor": {
             "type": "keyword"
